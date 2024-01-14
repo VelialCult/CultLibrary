@@ -1,0 +1,31 @@
+<component name="ArtifactManager">
+  <artifact name="CultLibrary:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/CultLibrary_jar</output-path>
+    <root id="root">
+      <element id="archive" name="CultLibrary.jar">
+        <element id="module-output" name="CultLibrary" />
+      </element>
+      <element id="library" level="project" name="Maven: xyz.xenondevs.invui:inventory-access-r5:1.15" />
+      <element id="library" level="project" name="Maven: xyz.xenondevs.invui:inventory-access-r6:1.15" />
+      <element id="library" level="project" name="Maven: xyz.xenondevs.invui:inventory-access-r12:1.15" />
+      <element id="library" level="project" name="Maven: xyz.xenondevs.invui:inventory-access-r2:1.15" />
+      <element id="library" level="project" name="Maven: xyz.xenondevs.invui:invui-core:1.15" />
+      <element id="library" level="project" name="Maven: com.github.cryptomorin:XSeries:9.5.0" />
+      <element id="library" level="project" name="Maven: xyz.xenondevs.invui:inventory-access-r1:1.15" />
+      <element id="library" level="project" name="Maven: xyz.xenondevs.invui:inventory-access-r4:1.15" />
+      <element id="library" level="project" name="Maven: xyz.xenondevs.invui:inventory-access-r7:1.15" />
+      <element id="library" level="project" name="Maven: xyz.xenondevs.invui:inventory-access-r9:1.15" />
+      <element id="library" level="project" name="Maven: xyz.xenondevs.invui:inventory-access-r11:1.15" />
+      <element id="library" level="project" name="Maven: org.jetbrains:annotations:24.0.0" />
+      <element id="library" level="project" name="Maven: xyz.xenondevs.invui:inventory-access-r8:1.15" />
+      <element id="library" level="project" name="Maven: xyz.xenondevs.invui:inventory-access-r13:1.15" />
+      <element id="library" level="project" name="Maven: xyz.xenondevs.invui:inventory-access-r3:1.15" />
+      <element id="library" level="project" name="Maven: xyz.xenondevs.invui:inventory-access:1.15" />
+      <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-databind:2.15.2" />
+      <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-annotations:2.15.2" />
+      <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-core:2.15.2" />
+      <element id="library" level="project" name="Maven: xyz.xenondevs.invui:inventory-access-r10:1.15" />
+      <element id="library" level="project" name="Maven: xyz.xenondevs.invui:inventory-access-r14:1.15" />
+    </root>
+  </artifact>
+</component>
