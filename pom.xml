@@ -6,11 +6,10 @@
 
     <groupId>org.example</groupId>
     <artifactId>CultLibrary</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0.3</version>
 
     <properties>
-        <maven.compiler.source>11</maven.compiler.source>
-        <maven.compiler.target>11</maven.compiler.target>
+        <java.version>11</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
