@@ -15,6 +15,33 @@ import java.util.Optional;
 
 public class LocationUtil {
 
+    public static Location[] getCorners(Location one, Location two) {
+
+        if (one.getWorld() != two.getWorld()) return null;
+
+        World world = one.getWorld();
+
+        Location[] res = new Location[8];
+
+        double minX = Math.min(one.getX(), two.getX());
+        double minY = Math.min(one.getY(), two.getY());
+        double minZ = Math.min(one.getZ(), two.getZ());
+        double maxX = Math.max(one.getX(), two.getX());
+        double maxY = Math.max(one.getY(), two.getY());
+        double maxZ = Math.max(one.getZ(), two.getZ());
+
+        res[0] = new Location(world, minX, minY, minZ);
+        res[1] = new Location(world, minX, maxY, minZ);
+        res[2] = new Location(world, maxX, minY, minZ);
+        res[3] = new Location(world, maxX, maxY, minZ);
+        res[4] = new Location(world, minX, minY, maxZ);
+        res[5] = new Location(world, minX, maxY, maxZ);
+        res[6] = new Location(world, maxX, minY, maxZ);
+        res[7] = new Location(world, maxX, maxY, maxZ);
+
+        return res;
+    }
+
     public static Location updateHologramHeight(Location location, List<String> lines, double heightIncreasePerLine) {
         int lineCount = lines.size();
         double newHeight = location.getY() + lineCount * heightIncreasePerLine;
