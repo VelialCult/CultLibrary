@@ -11,6 +11,39 @@ import java.util.GregorianCalendar;
 
 public class TimeUtil {
 
+    public static String parseTimeToString(long time) {
+        long seconds = time % 60L;
+        long minutes = time / 60L % 60L;
+        long hours = time / 3600L % 24L;
+        long days = time / 86400L % 7L;
+        long weeks = time / 604800L % 4L;
+        long months = time / 2630016L % 12L;
+        long years = time / 31556736L;
+        StringBuilder str = new StringBuilder();
+        if (years > 0L) {
+            str.append(years).append("y ");
+        }
+        if (months > 0L) {
+            str.append(months).append("M ");
+        }
+        if (weeks > 0L) {
+            str.append(weeks).append("w ");
+        }
+        if (days > 0L) {
+            str.append(days).append("d ");
+        }
+        if (hours > 0L) {
+            str.append(hours).append("H ");
+        }
+        if (minutes > 0L) {
+            str.append(minutes).append("m ");
+        }
+        if (seconds > 0L) {
+            str.append(seconds).append("s");
+        }
+        return str.toString().trim();
+    }
+
     public static String getTime(long seconds) {
         long years = seconds / (365 * 24 * 60 * 60);
         seconds -= years * (365 * 24 * 60 * 60);
