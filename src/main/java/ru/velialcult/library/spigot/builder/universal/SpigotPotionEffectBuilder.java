@@ -47,7 +47,7 @@ public class SpigotPotionEffectBuilder implements PotionEffectBuilder {
     @Override
     public PotionEffectBuilder setDuration(int seconds) {
 
-        this.duration = seconds * 20;
+        this.duration = seconds;
 
         return this;
     }
