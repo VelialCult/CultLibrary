@@ -14,12 +14,7 @@ public class PotionMetaSerialize implements ObjectSerialize<PotionMeta> {
         StringBuilder stringBuilder = new StringBuilder();
 
         for (PotionEffect potionEffect : object.getCustomEffects()) {
-                    stringBuilder.append(potionEffect.getType())
-                    .append(":")
-                    .append(potionEffect.getDuration())
-                    .append(":")
-                    .append(potionEffect.getAmplifier())
-                    .append(" ");
+                    stringBuilder.append(potionEffect.getType().getName()).append(":").append(potionEffect.getDuration() / 20).append(":").append(potionEffect.getAmplifier()).append(" ");
         }
 
         return stringBuilder.toString();

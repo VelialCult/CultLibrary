@@ -44,12 +44,7 @@ public class ItemStackSerialize implements ObjectSerialize<ItemStack> {
                 if (potionType != PotionType.AWKWARD && potionType != PotionType.WATER) {
                     PotionEffectType potionEffectType = potionType.getEffectType();
                     PotionEffect potionEffect = potionEffectType.createEffect(potionMeta.getBasePotionData().isExtended() ? 9600 : 3600, potionMeta.getBasePotionData().isUpgraded() ? 1 : 0);
-                    stringBuilder.append(potionEffectType.getName())
-                            .append(":")
-                            .append(potionEffect.getDuration())
-                            .append(":")
-                            .append(potionEffect.getAmplifier())
-                            .append(":");
+                    stringBuilder.append(potionEffect.getType().getName() + ":" + potionEffect.getDuration() / 20 + ":" + potionEffect.getAmplifier() + " ");
                 }
                 if (potionMeta.hasCustomEffects()) {
                     for (PotionEffect potionEffect : potionMeta.getCustomEffects()) {

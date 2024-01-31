@@ -9,11 +9,6 @@ public class PotionEffectSerialize implements ObjectSerialize<PotionEffect> {
     @Override
     public String serialize(PotionEffect object) {
 
-        return object.getType().getName() +
-                ":" +
-                object.getDuration() +
-                ":" +
-                object.getAmplifier() +
-                " ";
+        return object.getType().getName() + ":" + object.getDuration() / 20 + ":" + object.getAmplifier() + " ";
     }
 }

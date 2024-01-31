@@ -11,7 +11,7 @@ public class CultLibrary  extends JavaPlugin {
 
     public void onEnable() {
         library = this;
-        if (VersionsUtil.getServerVersion().isOlderEqualThan(VersionsUtil.ServerVersion.v1_16)) {
+        if (!VersionsUtil.getServerVersion().isNewerEqualThan(VersionsUtil.ServerVersion.v1_16)) {
             getLogger().severe("Ваша версия ядра Minecraft не поддерживается. Используйте 1.16 или выше");
             Bukkit.getPluginManager().disablePlugin(this);
         }

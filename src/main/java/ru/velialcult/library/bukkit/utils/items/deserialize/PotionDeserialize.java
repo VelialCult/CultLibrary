@@ -26,7 +26,7 @@ public class PotionDeserialize implements StringDeserialize<PotionEffect> {
         if (array.length > 1) {
             potionEffectBuilder.setDuration(Integer.parseInt(array[1]) * 20);
             if (array.length > 2) {
-                potionEffectBuilder.setAmplifier(Integer.parseInt(array[2]));
+                potionEffectBuilder.setAmplifier(Integer.parseInt(array[2].trim()));
             }
         }
 
