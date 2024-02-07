@@ -1,5 +1,7 @@
 package ru.velialcult.library.java.database;
 
+import ru.velialcult.library.java.database.Connector;
+import ru.velialcult.library.java.database.ResponseHandler;
 import ru.velialcult.library.java.database.query.Query;
 
 import java.sql.PreparedStatement;

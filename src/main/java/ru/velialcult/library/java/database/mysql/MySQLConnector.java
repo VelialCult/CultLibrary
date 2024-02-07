@@ -1,4 +1,7 @@
-package ru.velialcult.library.java.database;
+package ru.velialcult.library.java.database.mysql;
+
+import org.bukkit.plugin.Plugin;
+import ru.velialcult.library.java.database.SQLConnector;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -6,11 +9,13 @@ import java.sql.SQLException;
 
 public class MySQLConnector extends SQLConnector {
 
+    private final Plugin plugin;
     private final Connection connection;
 
     private final String url, user, password;
 
-    public MySQLConnector(String url, String user, String password) {
+    public MySQLConnector(Plugin plugin, String url, String user, String password) {
+        this.plugin = plugin;
         this.url = url;
         this.user = user;
         this.password = password;
@@ -31,7 +36,7 @@ public class MySQLConnector extends SQLConnector {
             String url = "jdbc:mysql//" + this.url;
             connection = DriverManager.getConnection(url, user, password);
         } catch (SQLException e) {
-            System.out.println("An error occurred while connecting to SQLite database: " + e.getSQLState());
+            plugin.getLogger().severe("Произошла ошибка при подключении к базе данных MySQL: " + e.getSQLState());
         }
         return connection;
     }
@@ -42,7 +47,7 @@ public class MySQLConnector extends SQLConnector {
             try {
                 connection.close();
             } catch (SQLException e) {
-                System.out.println("An error occurred while disconnect to SQLite database: " + e.getSQLState());
+                plugin.getLogger().severe("Произошла ошибка при отключении от базы данных MySQL: " + e.getSQLState());
             }
         }
     }
@@ -55,5 +60,10 @@ public class MySQLConnector extends SQLConnector {
     @Override
     public Connection getConnection() {
         return connection;
+    }
+
+    @Override
+    public Plugin getPlugin() {
+        return plugin;
     }
 }

@@ -38,7 +38,7 @@ public class SQLiteConnector extends SQLConnector {
             String url = "jdbc:sqlite:" + path;
             connection = DriverManager.getConnection(url);
         } catch (SQLException e) {
-            System.out.println("An error occurred while connecting to SQLite database: " + e.getSQLState());
+            plugin.getLogger().severe("Произошла ошибка при подключении к базе данных SQLite: " + e.getSQLState());
         }
         return connection;
     }
@@ -49,7 +49,7 @@ public class SQLiteConnector extends SQLConnector {
             try {
                 connection.close();
             } catch (SQLException e) {
-                System.out.println("An error occurred while disconnect to SQLite database: " + e.getSQLState());
+                plugin.getLogger().severe("Произошла ошибка при отключении от базы данных SQLite: " + e.getSQLState());
             }
         }
     }
@@ -62,5 +62,10 @@ public class SQLiteConnector extends SQLConnector {
     @Override
     public Connection getConnection() {
         return connection;
+    }
+
+    @Override
+    public Plugin getPlugin() {
+        return plugin;
     }
 }
