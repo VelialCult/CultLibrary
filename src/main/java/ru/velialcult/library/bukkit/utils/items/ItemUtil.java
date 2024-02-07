@@ -7,11 +7,17 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.potion.PotionEffect;
+import org.bukkit.util.io.BukkitObjectInputStream;
+import org.bukkit.util.io.BukkitObjectOutputStream;
 import ru.velialcult.library.bukkit.utils.VersionsUtil;
 import ru.velialcult.library.bukkit.utils.items.deserialize.ItemStackDeserialize;
 import ru.velialcult.library.bukkit.utils.items.serialize.ItemStackSerialize;
 import ru.velialcult.library.bukkit.utils.items.serialize.PotionEffectSerialize;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.util.Base64;
 import java.util.Map;
 
 /**
@@ -19,14 +25,40 @@ import java.util.Map;
  */
 public class ItemUtil {
 
+    public static String serializeItemStack(ItemStack item) {
+        try {
+            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+            BukkitObjectOutputStream dataOutput = new BukkitObjectOutputStream(outputStream);
+            dataOutput.writeObject(item);
+            dataOutput.close();
+            return Base64.getEncoder().encodeToString(outputStream.toByteArray());
+        } catch (IOException e) {
+            return itemStackSerialize(item);
+        }
+    }
+
+    public static ItemStack deserializeItemStack(String data) {
+        try {
+            ByteArrayInputStream inputStream = new ByteArrayInputStream(Base64.getDecoder().decode(data));
+            BukkitObjectInputStream dataInput = new BukkitObjectInputStream(inputStream);
+            ItemStack item = (ItemStack) dataInput.readObject();
+            dataInput.close();
+            return item;
+        } catch (IOException | ClassNotFoundException e) {
+            return itemStackDeserialize(data);
+        }
+    }
+
     public static String potionEffectSerialize(PotionEffect potionEffect) {
         return new PotionEffectSerialize().serialize(potionEffect);
     }
 
+    @Deprecated
     public static String itemStackSerialize(ItemStack itemStack) {
         return new ItemStackSerialize().serialize(itemStack);
     }
 
+    @Deprecated
     public static ItemStack itemStackDeserialize(String string) {
         return new ItemStackDeserialize().deserialize(string);
     }
