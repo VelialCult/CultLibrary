@@ -1,5 +1,6 @@
 package ru.velialcult.library.java.database;
 
+import org.bukkit.plugin.Plugin;
 import ru.velialcult.library.java.database.query.Query;
 
 import java.sql.Connection;
@@ -27,7 +28,18 @@ public interface Connector {
 
     int execute(String query, boolean async, Object... objects);
 
+    default int execute(Query query, boolean async, Object... objects) {
+        return execute(query.toString(), async, objects);
+    }
+
     <T> T executeQuery(String query, ResponseHandler<ResultSet, T> handler, boolean async, Object... objects);
 
+   default  <T> T executeQuery(Query query, ResponseHandler<ResultSet, T> handler, boolean async, Object... objects) {
+       return executeQuery(query.toString(), handler, async);
+   }
+
+
     <T> T handle(Callable<T> callable, boolean async);
+
+   Plugin getPlugin();
 }
