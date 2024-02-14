@@ -35,7 +35,7 @@ public interface Connector {
     <T> T executeQuery(String query, ResponseHandler<ResultSet, T> handler, boolean async, Object... objects);
 
    default  <T> T executeQuery(Query query, ResponseHandler<ResultSet, T> handler, boolean async, Object... objects) {
-       return executeQuery(query.toString(), handler, async);
+       return executeQuery(query.toString(), handler, async, objects);
    }
 
 

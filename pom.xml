@@ -6,7 +6,7 @@
 
     <groupId>org.example</groupId>
     <artifactId>CultLibrary</artifactId>
-    <version>1.0.3</version>
+    <version>1.0.4</version>
 
     <properties>
         <java.version>11</java.version>
@@ -41,6 +41,8 @@
                                     <artifact>com.github.cryptomorin:XSeries</artifact>
                                     <artifact>com.fasterxml.jackson.core:jackson-databind</artifact>
                                     <artifact>xyz.xenondevs.invui:invui</artifact>
+                                    <artifact>net.dv8tion:JDA</artifact>
+                                    <artifact>org.telegram:telegrambots</artifact>
                                     <includes>
                                         <include>**</include>
                                     </includes>
@@ -92,6 +94,17 @@
 
     <dependencies>
         <dependency>
+            <groupId>org.telegram</groupId>
+            <artifactId>telegrambots</artifactId>
+            <version>6.9.7.0</version>
+        </dependency>
+        <!-- https://mavenlibs.com/maven/dependency/net.dv8tion/JDA -->
+        <dependency>
+            <groupId>net.dv8tion</groupId>
+            <artifactId>JDA</artifactId>
+            <version>5.0.0-beta.20</version>
+        </dependency>
+        <dependency>
             <groupId>com.sk89q.worldedit</groupId>
             <artifactId>worldedit-bukkit</artifactId>
             <version>7.2.9</version>
@@ -128,7 +141,7 @@
         <dependency>
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot-api</artifactId>
-            <version>1.20.4-R0.1-SNAPSHOT</version>
+            <version>1.16.5-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>

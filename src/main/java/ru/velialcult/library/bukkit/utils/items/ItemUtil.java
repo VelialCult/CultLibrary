@@ -54,12 +54,12 @@ public class ItemUtil {
     }
 
     @Deprecated
-    public static String itemStackSerialize(ItemStack itemStack) {
+    private static String itemStackSerialize(ItemStack itemStack) {
         return new ItemStackSerialize().serialize(itemStack);
     }
 
     @Deprecated
-    public static ItemStack itemStackDeserialize(String string) {
+    private static ItemStack itemStackDeserialize(String string) {
         return new ItemStackDeserialize().deserialize(string);
     }
 
