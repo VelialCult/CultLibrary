@@ -43,7 +43,7 @@ public class YamlFile {
         ConfigurationUtil.saveFile(configuration, plugin.getDataFolder().getAbsolutePath(), name);
     }
 
-    public void reloadConfiguration() {
+    public void loadConfiguration() {
         this.configuration = ConfigurationUtil.loadConfiguration(plugin, name);
     }
 }
