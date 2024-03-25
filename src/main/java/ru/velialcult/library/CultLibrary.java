@@ -4,6 +4,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 import ru.velialcult.library.bukkit.utils.VersionsUtil;
 import ru.velialcult.library.spigot.listener.PlayerPickupExperienceListener;
+import ru.velialcult.library.update.CheckUpdateManager;
 
 public class CultLibrary  extends JavaPlugin {
 
@@ -15,6 +16,9 @@ public class CultLibrary  extends JavaPlugin {
             getLogger().severe("Ваша версия ядра Minecraft не поддерживается. Используйте 1.16 или выше");
             Bukkit.getPluginManager().disablePlugin(this);
         }
+
+        CheckUpdateManager checkUpdateManager = new CheckUpdateManager(this);
+        checkUpdateManager.checkUpdates();
 
         Bukkit.getPluginManager().registerEvents(new PlayerPickupExperienceListener(), this);
     }
