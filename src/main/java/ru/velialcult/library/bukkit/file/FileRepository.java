@@ -49,8 +49,8 @@ public class FileRepository {
         files.stream()
                 .filter(yamlFile -> yamlFile.getPlugin().getName().equals(plugin.getName()))
                 .forEach(yamlFile -> {
-                    yamlFile.saveConfiguration();
                     yamlFile.loadConfiguration();
+                    yamlFile.saveConfiguration();
                 });
     }
 
