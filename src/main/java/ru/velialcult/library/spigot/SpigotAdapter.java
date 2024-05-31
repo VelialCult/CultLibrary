@@ -1,5 +1,6 @@
 package ru.velialcult.library.spigot;
 
+import ru.velialcult.library.bukkit.notification.NotificationService;
 import ru.velialcult.library.bukkit.utils.VersionsUtil;
 import ru.velialcult.library.core.builder.*;
 import ru.velialcult.library.core.util.SkullUtils;
@@ -37,9 +38,9 @@ public class SpigotAdapter {
 
     private final Class<? extends PotionEffectBuilder> potionEffectBuilder;
 
-    {
-        VersionsUtil.ServerVersion serverVersion = VersionsUtil.getServerVersion();
+    private final NotificationService notificationService;
 
+    {
         textUtil = new SpigotTextUtil();
 
 
@@ -59,8 +60,13 @@ public class SpigotAdapter {
         messageUtils = new SpigotMessageUtil();
 
         messageBuilder = SpigotMessageBuilder.class;
+
+        notificationService = new NotificationService();
     }
 
+    public NotificationService getNotificationService() {
+        return notificationService;
+    }
 
     public SpigotTextUtil getTextUtil() {
         return textUtil;

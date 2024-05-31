@@ -15,7 +15,6 @@ public class ConfigurationUtil
     {
         File file = new File(dataFolder, fileName);
         if (!file.exists()) {
-            System.out.println("Файл не найден");
             plugin.saveResource(fileName, false);
 
         }

@@ -43,4 +43,14 @@ public class SpigotSkullUtil_v1_19 implements SkullUtils {
         gameProfile.getProperties().put("textures", new Property("textures", new String(encodedData)));
         return gameProfile;
     }
+
+    public String getTexture(SkullMeta skullMeta) {
+        try {
+            GameProfile profile = (GameProfile) profileField.get(skullMeta);
+            Property property = profile.getProperties().get("textures").iterator().next();
+            return property.getValue();
+        } catch (IllegalAccessException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

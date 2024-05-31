@@ -24,11 +24,11 @@ public class LocationUtil {
         Location[] res = new Location[8];
 
         double minX = Math.min(one.getX(), two.getX());
-        double minY = Math.min(one.getY(), two.getY());
+        double minY = Math.floor(Math.min(one.getY(), two.getY()));
         double minZ = Math.min(one.getZ(), two.getZ());
-        double maxX = Math.max(one.getX(), two.getX());
-        double maxY = Math.max(one.getY(), two.getY());
-        double maxZ = Math.max(one.getZ(), two.getZ());
+        double maxX = Math.ceil(Math.max(one.getX(), two.getX())) + 1;
+        double maxY = Math.ceil(Math.max(one.getY(), two.getY())) + 1;
+        double maxZ = Math.ceil(Math.max(one.getZ(), two.getZ()) + 1);
 
         res[0] = new Location(world, minX, minY, minZ);
         res[1] = new Location(world, minX, maxY, minZ);
@@ -42,9 +42,9 @@ public class LocationUtil {
         return res;
     }
 
-    public static Location updateHologramHeight(Location location, List<String> lines, double heightIncreasePerLine) {
+    public static Location updateHologramHeight(Location location, List<String> lines, double heightIncreasePerLine, double baseHeight) {
         int lineCount = lines.size();
-        double newHeight = location.getY() + lineCount * heightIncreasePerLine;
+        double newHeight = location.getY() + baseHeight + lineCount * heightIncreasePerLine;
         Location newLocation = location.clone();
         newLocation.setY(newHeight);
         newLocation.setX(location.getX() + 0.5);

@@ -1,25 +1,23 @@
 package ru.velialcult.library.java.database.query;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import ru.velialcult.library.java.database.DataBase;
 import ru.velialcult.library.java.database.SQLConnector;
 
 import java.sql.ResultSet;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
-/**
- *
- * Тут происходит пиздец, не лезьте
- * Клас для создания SQL запросов
- *
- * @author Nicholas Alexandor 15.06.23
- *
- */
-
 public class SQLQuery implements Query {
+
+    private static String quoteIfNeeded(Object value) {
+        if (value instanceof String || value instanceof UUID) {
+            return "'" + value.toString() + "'";
+        } else {
+            return value.toString();
+        }
+    }
 
     public static Select selectFrom(String table) {
         return new Select(table);
@@ -404,7 +402,7 @@ public class SQLQuery implements Query {
 
                     setString.append(" = ");
 
-                    setString.append(value instanceof String ? "\"" + value + "\"" : "'" + value + "'");
+                    setString.append(quoteIfNeeded(value));
 
                     size++;
 
@@ -440,7 +438,7 @@ public class SQLQuery implements Query {
 
                     columnsString.append("`").append(column).append("`");
 
-                    valuesString.append(value instanceof String ? "\"" + value + "\"" : "'" + value + "'");
+                    valuesString.append(quoteIfNeeded(value));
 
                     size++;
 

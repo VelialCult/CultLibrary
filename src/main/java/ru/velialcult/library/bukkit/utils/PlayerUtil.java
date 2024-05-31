@@ -1,10 +1,14 @@
 package ru.velialcult.library.bukkit.utils;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
+import org.bukkit.inventory.meta.SkullMeta;
+import ru.velialcult.library.bukkit.utils.items.ItemUtil;
+import ru.velialcult.library.core.VersionAdapter;
 
 import java.util.Objects;
 
@@ -33,7 +37,7 @@ public class PlayerUtil {
             if (content == null) {
                 continue;
             }
-            if (itemStack.isSimilar(content)) {
+            if (ItemUtil.areSimilar(content, itemStack)) {
                 amount += content.getAmount();
             }
         }
@@ -47,13 +51,14 @@ public class PlayerUtil {
             ItemStack content = player.getInventory().getItem(i);
             if (content != null) {
                 int contentAmount = content.getAmount();
-                if (content.isSimilar(itemStack)) {
+                if (ItemUtil.areSimilar(content, itemStack)) {
                     if (amount >= contentAmount) {
                         content.setAmount(0);
                         player.updateInventory();
                         amount -= contentAmount;
 
-                    } else {
+                    }
+                    else {
                         content.setAmount(contentAmount - amount);
                         player.updateInventory();
                         amount = 0;

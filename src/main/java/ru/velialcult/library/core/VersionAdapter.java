@@ -1,6 +1,7 @@
 package ru.velialcult.library.core;
 
 import org.bukkit.Bukkit;
+import ru.velialcult.library.bukkit.notification.NotificationService;
 import ru.velialcult.library.bukkit.utils.VersionsUtil;
 import ru.velialcult.library.core.builder.*;
 import ru.velialcult.library.core.util.SkullUtils;
@@ -28,6 +29,11 @@ public class VersionAdapter {
     public static PotionEffectBuilder getPotionEffectBuilder() {
 
         return adapter.getPotionEffectBuilder();
+    }
+
+    public static NotificationService getNotificationService() {
+
+        return adapter.getNotificationService();
     }
 
     public static PotionBuilder getPotionBuilder() {

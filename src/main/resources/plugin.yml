@@ -2,8 +2,8 @@ main: ru.velialcult.library.CultLibrary
 api-version: 1.16
 version: '${project.version}'
 name: CultLibrary
-author: https://leaked-minecraft.pro/velialcult/
-website: https://leaked-minecraft.pro/
+website: https://vk.com/velialcultstudio
+author: Nilsson03
 softdepend:
   - PlaceholderAPI
   - ProtocolLib

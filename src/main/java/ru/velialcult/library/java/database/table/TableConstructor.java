@@ -45,7 +45,7 @@ public final class TableConstructor {
     public void create(DataBase dataBase) {
         if (dataBase.getConnector() instanceof SQLConnector) {
             SQLConnector sqlConnector = (SQLConnector) dataBase.getConnector();
-            sqlConnector.execute(this.toString(), true);
+            sqlConnector.execute(this.toString(), false);
             for (String columnName : columns) {
                 sqlConnector.execute("ALTER TABLE `" + name + "` ADD INDEX (`" + columnName + "`);", true);
             }

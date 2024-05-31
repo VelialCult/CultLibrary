@@ -2,6 +2,7 @@ package ru.velialcult.library.spigot.builder.universal;
 
 import com.cryptomorin.xseries.XEnchantment;
 import com.cryptomorin.xseries.XMaterial;
+import org.bukkit.Bukkit;
 import org.bukkit.Color;
 import org.bukkit.DyeColor;
 import org.bukkit.Material;
@@ -13,6 +14,7 @@ import org.bukkit.inventory.meta.LeatherArmorMeta;
 import ru.velialcult.library.core.VersionAdapter;
 import ru.velialcult.library.core.builder.ItemBuilder;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -24,7 +26,6 @@ public class SpigotItemBuilder implements ItemBuilder {
     protected ItemMeta itemMeta;
 
     public SpigotItemBuilder() {
-
         this.itemStack = new ItemStack(Objects.requireNonNull(XMaterial.matchXMaterial(Material.DIRT).parseMaterial()));
         this.itemMeta = this.itemStack.getItemMeta();
     }
@@ -45,19 +46,22 @@ public class SpigotItemBuilder implements ItemBuilder {
     public ItemBuilder setItem(ItemStack itemstack) {
         this.itemStack = itemstack;
         this.itemMeta = itemStack.getItemMeta();
+        if (itemMeta == null) {
+            this.itemMeta = Bukkit.getServer().getItemFactory().getItemMeta(this.itemStack.getType());
+        }
         return this;
     }
 
     @Override
     public ItemBuilder addLine(String line) {
-
-        this.itemMeta.getLore().add(VersionAdapter.TextUtil().colorize(line));
+        List<String> lore = this.itemMeta.getLore() == null ? new ArrayList<>() : this.itemMeta.getLore();
+        lore.add(VersionAdapter.TextUtil().colorize(line));
+        this.itemMeta.setLore(lore);
         return this;
     }
 
     @Override
     public ItemBuilder setLore(List<String> lines) {
-
         this.itemMeta.setLore(VersionAdapter.TextUtil().colorize(lines));
         return this;
     }

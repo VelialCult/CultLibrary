@@ -1,6 +1,5 @@
 package ru.velialcult.library.bukkit.file;
 
-import ru.velialcult.library.bukkit.file.exception.FileNotLoadException;
 import ru.velialcult.library.core.VersionAdapter;
 import ru.velialcult.library.java.text.ReplaceData;
 
@@ -15,9 +14,6 @@ public class FileOperations {
 
     public FileOperations(Map<String, String> map) {
         this.map = map;
-
-        if (map.isEmpty())
-            throw new FileNotLoadException();
     }
 
     public boolean getBoolean(String path) {

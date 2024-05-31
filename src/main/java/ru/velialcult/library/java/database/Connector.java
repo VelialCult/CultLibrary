@@ -38,7 +38,6 @@ public interface Connector {
        return executeQuery(query.toString(), handler, async, objects);
    }
 
-
     <T> T handle(Callable<T> callable, boolean async);
 
    Plugin getPlugin();

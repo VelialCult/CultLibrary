@@ -2,9 +2,9 @@ package ru.velialcult.library;
 
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
+import ru.velialcult.library.bukkit.inventory.PlayerInputHandler;
 import ru.velialcult.library.bukkit.utils.VersionsUtil;
 import ru.velialcult.library.spigot.listener.PlayerPickupExperienceListener;
-import ru.velialcult.library.update.CheckUpdateManager;
 
 public class CultLibrary  extends JavaPlugin {
 
@@ -17,10 +17,8 @@ public class CultLibrary  extends JavaPlugin {
             Bukkit.getPluginManager().disablePlugin(this);
         }
 
-        CheckUpdateManager checkUpdateManager = new CheckUpdateManager(this);
-        checkUpdateManager.checkUpdates();
-
         Bukkit.getPluginManager().registerEvents(new PlayerPickupExperienceListener(), this);
+        Bukkit.getPluginManager().registerEvents(new PlayerInputHandler(), this);
     }
 
     public static CultLibrary getLibrary() {

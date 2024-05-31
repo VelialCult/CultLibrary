@@ -33,4 +33,18 @@ public class SpigotSkullUtil_v1_20 implements SkullUtils {
             throw new RuntimeException(e);
         }
     }
+
+    public String getTexture(SkullMeta skullMeta) {
+        try {
+            Field profileField = skullMeta.getClass().getDeclaredField("profile");
+            profileField.setAccessible(true);
+            Object profile = profileField.get(skullMeta);
+            Method m = profile.getClass().getDeclaredMethod("getTextures");
+            m.setAccessible(true);
+            URL texture = (URL) m.invoke(profile);
+            return texture.toString();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

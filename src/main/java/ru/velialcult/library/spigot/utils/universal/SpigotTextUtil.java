@@ -54,6 +54,7 @@ public class SpigotTextUtil  {
         List<String> result = new ArrayList<>();
         for (String str : lore) {
             String replaced = setReplaces(str, replacesData);
+            replaced = replaced.replace("[", "").replace("]", "");
             String[] lines = replaced.split("\n");
             result.addAll(Arrays.asList(lines));
         }

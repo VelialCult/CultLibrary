@@ -8,4 +8,6 @@ import org.bukkit.inventory.meta.SkullMeta;
 public interface SkullUtils {
 
     Object setTexture(SkullMeta skullMeta, String texture);
+
+    String getTexture(SkullMeta skullMeta);
 }

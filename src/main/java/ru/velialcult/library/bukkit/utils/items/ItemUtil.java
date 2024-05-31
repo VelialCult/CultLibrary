@@ -2,8 +2,10 @@ package ru.velialcult.library.bukkit.utils.items;
 
 import org.bukkit.NamespacedKey;
 import org.bukkit.enchantments.Enchantment;
+import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.inventory.meta.SkullMeta;
 import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.potion.PotionEffect;
@@ -13,6 +15,8 @@ import ru.velialcult.library.bukkit.utils.VersionsUtil;
 import ru.velialcult.library.bukkit.utils.items.deserialize.ItemStackDeserialize;
 import ru.velialcult.library.bukkit.utils.items.serialize.ItemStackSerialize;
 import ru.velialcult.library.bukkit.utils.items.serialize.PotionEffectSerialize;
+import ru.velialcult.library.core.VersionAdapter;
+
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -24,17 +28,6 @@ import java.util.Map;
  */
 public class ItemUtil {
 
-    public static String serializeItemStack(ItemStack item) {
-        try {
-            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-            BukkitObjectOutputStream dataOutput = new BukkitObjectOutputStream(outputStream);
-            dataOutput.writeObject(item);
-            dataOutput.close();
-            return Base64.getEncoder().encodeToString(outputStream.toByteArray());
-        } catch (IOException e) {
-            return itemStackSerialize(item);
-        }
-    }
 
     public static ItemStack deserializeItemStack(String data) {
         try {
@@ -81,6 +74,11 @@ public class ItemUtil {
         // Сравнение ItemMeta
         ItemMeta meta1 = item1.getItemMeta();
         ItemMeta meta2 = item2.getItemMeta();
+
+        if (meta1 instanceof SkullMeta && meta2 instanceof SkullMeta) {
+            if (!VersionAdapter.SkullUtils().getTexture((SkullMeta) meta1).equalsIgnoreCase(VersionAdapter.SkullUtils().getTexture((SkullMeta) meta2)))
+                return false;
+        }
 
         if (meta1 == null || meta2 == null) {
             return meta1 == meta2;
