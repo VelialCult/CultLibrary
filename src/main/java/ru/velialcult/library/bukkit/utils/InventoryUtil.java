@@ -241,6 +241,10 @@ public class InventoryUtil {
         );
     }
 
+    public static ItemStack createItem(FileConfiguration fileConfiguration, String path, ReplaceData... replaceData) {
+        return createItem(null, fileConfiguration, path, replaceData);
+    }
+
     public static ItemStack createItem(Player player, FileConfiguration fileConfiguration, String path, ReplaceData... replaceData) {
         ItemStack itemStack;
         String materialName = fileConfiguration.getString(path + ".item.material");
