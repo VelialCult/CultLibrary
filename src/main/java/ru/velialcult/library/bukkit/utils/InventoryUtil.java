@@ -157,6 +157,34 @@ public class InventoryUtil {
         suppliedItems.forEach(builder::addIngredient);
     }
 
+    public static Map<Character, SuppliedItem> createItems(
+            Player player,
+            FileConfiguration config,
+            String path,
+            BiConsumer<InventoryClickEvent, String> clickHandler,
+            ReplaceData... replaceData
+    ) {
+        Map<Character, SuppliedItem> baseCustomItems = new HashMap<>();
+        ConfigurationSection section = config.getConfigurationSection(path);
+        if (section != null) {
+            for (String key : section.getKeys(false)) {
+                String itemPath = path + "." + key;
+                if (config.getBoolean(itemPath + ".custom")) {
+                    if (config.getBoolean(itemPath + ".autoUpdate", false)) {
+                        AutoUpdateItem customItem = createAutoUpdateItem(player, config, itemPath, clickHandler, replaceData);
+                        char symbol = config.getString(itemPath + ".symbol").charAt(0);
+                        baseCustomItems.putIfAbsent(symbol, customItem);
+                    } else {
+                        SuppliedItem customItem = createItem(player, config, itemPath, clickHandler, replaceData);
+                        char symbol = config.getString(itemPath + ".symbol").charAt(0);
+                        baseCustomItems.putIfAbsent(symbol, customItem);
+                    }
+                }
+            }
+        }
+        return baseCustomItems;
+    }
+
 
     public static Map<Character, SuppliedItem> createItems(
             FileConfiguration config,
@@ -171,11 +199,11 @@ public class InventoryUtil {
                 String itemPath = path + "." + key;
                 if (config.getBoolean(itemPath + ".custom")) {
                     if (config.getBoolean(itemPath + ".autoUpdate", false)) {
-                        AutoUpdateItem customItem = createAutoUpdateItem(config, itemPath, clickHandler, replaceData);
+                        AutoUpdateItem customItem = createAutoUpdateItem(null, config, itemPath, clickHandler, replaceData);
                         char symbol = config.getString(itemPath + ".symbol").charAt(0);
                         baseCustomItems.putIfAbsent(symbol, customItem);
                     } else {
-                        SuppliedItem customItem = createItem(config, itemPath, clickHandler, replaceData);
+                        SuppliedItem customItem = createItem(null, config, itemPath, clickHandler, replaceData);
                         char symbol = config.getString(itemPath + ".symbol").charAt(0);
                         baseCustomItems.putIfAbsent(symbol, customItem);
                     }
@@ -185,12 +213,12 @@ public class InventoryUtil {
         return baseCustomItems;
     }
 
-    public static AutoUpdateItem createAutoUpdateItem(FileConfiguration config,
+    public static AutoUpdateItem createAutoUpdateItem(Player player, FileConfiguration config,
                                                       String itemPath,
                                                       BiConsumer<InventoryClickEvent, String> clickHandler,
                                                       ReplaceData... replaceData) {
         return new AutoUpdateItem(20, () ->
-                s -> createItem(config, itemPath, replaceData)) {
+                s -> createItem(player, config, itemPath, replaceData)) {
             @Override
             public void handleClick(@NotNull ClickType clickType, @NotNull Player player, @NotNull InventoryClickEvent event) {
                 clickHandler.accept(event, itemPath);
@@ -199,12 +227,13 @@ public class InventoryUtil {
     }
 
     public static SuppliedItem createItem(
+            Player player,
             FileConfiguration config,
             String itemPath,
             BiConsumer<InventoryClickEvent, String> clickHandler,
             ReplaceData... replaceData) {
         return new SuppliedItem(
-                () -> s -> createItem(config, itemPath, replaceData),
+                () -> s -> createItem(player, config, itemPath, replaceData),
                 click -> {
                     clickHandler.accept(click.getEvent(), itemPath);
                     return true;
@@ -212,12 +241,18 @@ public class InventoryUtil {
         );
     }
 
-    public static ItemStack createItem(FileConfiguration fileConfiguration, String path, ReplaceData... replaceData) {
+    public static ItemStack createItem(Player player, FileConfiguration fileConfiguration, String path, ReplaceData... replaceData) {
         ItemStack itemStack;
         String materialName = fileConfiguration.getString(path + ".item.material");
         String url = fileConfiguration.getString(path + ".item.head");
         String displayName = VersionAdapter.TextUtil().colorize(VersionAdapter.TextUtil().setReplaces(fileConfiguration.getString(path + ".displayName"), replaceData));
         List<String> lore = VersionAdapter.TextUtil().colorize(VersionAdapter.TextUtil().setReplaces(fileConfiguration.getStringList(path + ".lore"), replaceData));
+
+        if (player != null) {
+            displayName = PlaceholderAPI.setPlaceholders(player, displayName);
+            lore = PlaceholderAPI.setPlaceholders(player, lore);
+        }
+
         int customModelData = fileConfiguration.getInt(path + ".customModelData", 0);
 
         if (materialName.equalsIgnoreCase("head")) {

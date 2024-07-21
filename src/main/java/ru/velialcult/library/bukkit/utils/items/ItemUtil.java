@@ -75,35 +75,40 @@ public class ItemUtil {
         ItemMeta meta1 = item1.getItemMeta();
         ItemMeta meta2 = item2.getItemMeta();
 
-        if (meta1 instanceof SkullMeta && meta2 instanceof SkullMeta) {
-            if (!VersionAdapter.SkullUtils().getTexture((SkullMeta) meta1).equalsIgnoreCase(VersionAdapter.SkullUtils().getTexture((SkullMeta) meta2)))
-                return false;
-        }
+        if (meta1 != null && meta2 != null) {
 
-        if (meta1 == null || meta2 == null) {
-            return meta1 == meta2;
-        }
-
-        if (VersionsUtil.getServerVersion().isNewerEqualThanV1_14()) {
-            if (meta1.hasCustomModelData() && meta2.hasCustomModelData()) {
-                return meta1.getCustomModelData() == meta2.getCustomModelData();
+            if (meta1 instanceof SkullMeta && meta2 instanceof SkullMeta) {
+                if (!VersionAdapter.SkullUtils().getTexture((SkullMeta) meta1).equalsIgnoreCase(VersionAdapter.SkullUtils().getTexture((SkullMeta) meta2)))
+                    return false;
             }
-        }
 
-        if (!meta1.getDisplayName().equals(meta2.getDisplayName())) {
-            return false;
-        }
+            if (VersionsUtil.getServerVersion().isNewerEqualThanV1_14()) {
+                if (meta1.hasCustomModelData() && meta2.hasCustomModelData()) {
+                    return meta1.getCustomModelData() == meta2.getCustomModelData();
+                }
+            }
 
-        // Сравнение PersistentDataContainer
-        PersistentDataContainer data1 = meta1.getPersistentDataContainer();
-        PersistentDataContainer data2 = meta2.getPersistentDataContainer();
-
-        for (NamespacedKey key : data1.getKeys()) {
-            if (!isIgnored(key, ignoredKeys) && !data1.get(key, PersistentDataType.STRING).equals(data2.get(key, PersistentDataType.STRING))) {
+            if (!meta1.getLore().equals(meta2.getLore())) {
                 return false;
             }
-        }
 
+            if (!meta1.getDisplayName().equals(meta2.getDisplayName())) {
+                return false;
+            }
+
+            // Сравнение PersistentDataContainer
+            PersistentDataContainer data1 = meta1.getPersistentDataContainer();
+            PersistentDataContainer data2 = meta2.getPersistentDataContainer();
+
+            for (NamespacedKey key : data1.getKeys()) {
+                if (!isIgnored(key, ignoredKeys) && !data1.get(key, PersistentDataType.STRING).equals(data2.get(key, PersistentDataType.STRING))) {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+        
         return true;
     }
 
