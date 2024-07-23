@@ -88,8 +88,10 @@ public class ItemUtil {
                 }
             }
 
-            if (!meta1.getLore().equals(meta2.getLore())) {
-                return false;
+            if (meta1.hasLore() && meta2.hasLore()) {
+                if (!meta1.getLore().equals(meta2.getLore())) {
+                    return false;
+                }
             }
 
             if (!meta1.getDisplayName().equals(meta2.getDisplayName())) {
