@@ -14,8 +14,7 @@ public class SchematicService {
 
     public static Location pasteSchematicWithGetBlock(Clipboard clipboard, Location location, Material material) {
         SchematicPaster schematicPaster = new SchematicPaster();
-        schematicPaster.pasteSchematicWithGetBlock(clipboard, location, material);
-        return schematicPaster.getChestLocation();
+        return schematicPaster.pasteSchematicWithGetBlock(clipboard, location, material);
     }
 
     public static org.bukkit.World performPaste(Clipboard clipboard, Location location) {

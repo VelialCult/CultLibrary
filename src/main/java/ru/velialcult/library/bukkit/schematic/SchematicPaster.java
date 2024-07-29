@@ -19,7 +19,6 @@ import ru.velialcult.library.CultLibrary;
 import java.util.Objects;
 
 public class SchematicPaster {
-    private Location chestLocation = null;
 
     public org.bukkit.World pasteSchematic(Clipboard clipboard, Location location) {
         com.sk89q.worldedit.world.World adaptedWorld = BukkitAdapter.adapt(Objects.requireNonNull(location.getWorld()));
@@ -39,7 +38,8 @@ public class SchematicPaster {
         return location.getWorld();
     }
 
-    public void pasteSchematicWithGetBlock(Clipboard clipboard, Location location, Material material) {
+    public Location pasteSchematicWithGetBlock(Clipboard clipboard, Location location, Material material) {
+        Location chestLocation = null;
         BlockVector3 pasteLocation = BlockVector3.at(location.getX(), location.getY(), location.getZ());
         World world = pasteSchematic(clipboard, location);
 
@@ -54,14 +54,12 @@ public class SchematicPaster {
                     Block block = world.getBlockAt(x, y, z);
                     if (block.getType() == material) {
                         chestLocation = block.getLocation();
+                        System.out.println("1");
                         chestLocation.setY(chestLocation.getY() + 1);
                     }
                 }
             }
         }
-    }
-
-    public Location getChestLocation() {
         return chestLocation;
     }
 }

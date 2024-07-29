@@ -249,8 +249,13 @@ public class InventoryUtil {
         ItemStack itemStack;
         String materialName = fileConfiguration.getString(path + ".item.material");
         String url = fileConfiguration.getString(path + ".item.head");
-        String displayName = VersionAdapter.TextUtil().colorize(VersionAdapter.TextUtil().setReplaces(fileConfiguration.getString(path + ".displayName"), replaceData));
-        List<String> lore = VersionAdapter.TextUtil().colorize(VersionAdapter.TextUtil().setReplaces(fileConfiguration.getStringList(path + ".lore"), replaceData));
+        String displayName = " ";
+        if (fileConfiguration.contains(path + ".displayName"))
+            displayName = VersionAdapter.TextUtil().colorize(VersionAdapter.TextUtil().setReplaces(fileConfiguration.getString(path + ".displayName"), replaceData));
+
+        List<String> lore = new ArrayList<>();
+        if (fileConfiguration.contains(path + ".lore"))
+            lore = VersionAdapter.TextUtil().colorize(VersionAdapter.TextUtil().setReplaces(fileConfiguration.getStringList(path + ".lore"), replaceData));
 
         if (player != null) {
             displayName = PlaceholderAPI.setPlaceholders(player, displayName);
