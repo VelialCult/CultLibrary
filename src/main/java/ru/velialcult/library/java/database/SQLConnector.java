@@ -15,6 +15,7 @@ import java.util.concurrent.ExecutionException;
 /**
  * @author Nicholas Alexandrov 18.08.2023
  */
+@Deprecated
 public abstract class SQLConnector implements Connector {
 
     @Override

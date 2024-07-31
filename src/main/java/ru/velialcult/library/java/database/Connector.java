@@ -12,6 +12,7 @@ import java.util.concurrent.CompletableFuture;
 /**
  * @author Nicholas Alexandrov 26.07.2023
  */
+@Deprecated
 public interface Connector {
 
     Connection connect();

@@ -6,6 +6,7 @@ import ru.velialcult.library.java.database.sqlite.SQLiteConnector;
 
 import java.util.Objects;
 
+@Deprecated
 public class DataBase {
 
     private final Connector connector;

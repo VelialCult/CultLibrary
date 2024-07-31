@@ -1,7 +1,5 @@
 package ru.velialcult.library.java.database.query;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import ru.velialcult.library.java.database.DataBase;
 import ru.velialcult.library.java.database.SQLConnector;
 
