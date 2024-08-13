@@ -54,7 +54,6 @@ public class SchematicPaster {
                     Block block = world.getBlockAt(x, y, z);
                     if (block.getType() == material) {
                         chestLocation = block.getLocation();
-                        System.out.println("1");
                         chestLocation.setY(chestLocation.getY() + 1);
                     }
                 }

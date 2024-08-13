@@ -27,4 +27,13 @@ public class TaskManager {
         }
         return task.getTimeRemaining();
     }
+    
+    public Task getTask(String taskId) {
+        return tasks.getOrDefault(taskId, null);
+    }
+    
+    public Map<String, Task> getTasks()
+    {
+        return tasks;
+    }
 }
