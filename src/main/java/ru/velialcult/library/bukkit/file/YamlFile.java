@@ -5,6 +5,9 @@ import org.bukkit.plugin.Plugin;
 import ru.velialcult.library.bukkit.utils.ConfigurationUtil;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 
 /**
  * @author Nicholas Alexandrov 18.06.2023
@@ -45,5 +48,10 @@ public class YamlFile {
 
     public void loadConfiguration() {
         this.configuration = ConfigurationUtil.loadConfiguration(plugin, name);
+    }
+    
+    public InputStream getInputStream() throws FileNotFoundException
+    {
+        return new FileInputStream(file);
     }
 }
