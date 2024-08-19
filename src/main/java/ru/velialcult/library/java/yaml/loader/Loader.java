@@ -7,8 +7,8 @@ import ru.velialcult.library.bukkit.file.YamlFile;
  * Created by Nilsson03 on 07.08.2024
  */
 
-public interface Loader<T>
+public interface Loader<E, T>
 {
     
-    T load(YamlFile yamlFile);
+    T load(YamlFile yamlFile, Class<E> clazz);
 }

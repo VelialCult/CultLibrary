@@ -1,53 +1,57 @@
 package ru.velialcult.library.java.yaml.storage;
 
 import ru.velialcult.library.bukkit.file.YamlFile;
-import ru.velialcult.library.java.yaml.loader.ListLoader;
-import ru.velialcult.library.java.yaml.saver.ListSaver;
+import ru.velialcult.library.java.yaml.loader.impl.GenericLoader;
+import ru.velialcult.library.java.yaml.saver.Saver;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * ListStorage
  * Created by Nilsson03 on 07.08.2024
  */
 
-public interface ListStorage<T> extends Storage
+public interface PairStorage<T> extends Storage
 {
     
-    List<T> getList();
+    Map<String, T> getMap();
     
-    ListLoader<T> getLoader();
+    GenericLoader<T> getLoader();
     
     @Override
     YamlFile getFile();
     
-    ListSaver<T, List<T>> getSaver();
+    Class<T> getTypeClass();
+    
+    
+    Saver<Map<String, T>> getSaver();
     
     @Override
     default void initialize()
     {
-        List<T> list = getList();
+        Map<String, T> list = getMap();
         if (list == null) {
             logWarning("При попытке загрузки хранилище не найдено.");
             return;
         }
         
-        List<T> data = getLoader().load(getFile());
+        Map<String, T> data = getLoader().load(getFile(), getTypeClass());
         if (data.isEmpty()) {
             logWarning("При попытке загрузки данные не найдены, хранилище будет создано пустым.");
         }
         
-        list.addAll(data);
+        list.putAll(data);
     }
     
-    default void add(T value)
+    default void add(String key, T value)
     {
-        getList().add(value);
+        getMap().put(key, value);
     }
     
-    default void remove(T key)
+    default void remove(String key)
     {
-        getList().remove(key);
+        getMap().remove(key);
     }
     
 }
